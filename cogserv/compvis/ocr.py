@@ -43,8 +43,10 @@ def sendOCR(image):
     #######################
     # Modify as necessary #
     #######################
+    text_result = []
     if read_result.status == OperationStatusCodes.succeeded:
         for text_result in read_result.analyze_result.read_results:
             for line in text_result.lines:
                 print(line.text)
                 print(line.bounding_box)
+                text_result.append(line.text)
