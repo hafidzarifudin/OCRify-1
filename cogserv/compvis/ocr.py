@@ -17,12 +17,14 @@ endpoint = "https://dydx-computervision.cognitiveservices.azure.com/"
 computervision_client = ComputerVisionClient(endpoint, CognitiveServicesCredentials(subscription_key))
 
 def sendOCR(image):
-    print("===== Read File - local =====")
-    # Get an image with text
-    read_image_url = "https://raw.githubusercontent.com/MicrosoftDocs/azure-docs/master/articles/cognitive-services/Computer-vision/Images/readsample.jpg"
+    print(image.format)
+    out = io.BytesIO()
+    image.save(out, format = image.format)
+    image_in_bytes = out.getvalue()
 
-    # Call API with URL and raw response (allows you to get the operation location)
-    read_response = computervision_client.read(read_image_url,  raw=True)
+    return image_in_bytes
+
+    read_response = computervision_client.read_in_stream(image_in_bytes,  raw=True)
 
     # Get the operation location (URL with an ID at the end) from the response
     read_operation_location = read_response.headers["Operation-Location"]
@@ -36,13 +38,13 @@ def sendOCR(image):
             break
         time.sleep(1)
 
-    # Print the detected text, line by line
+    # Process results
+
+    #######################
+    # Modify as necessary #
+    #######################
     if read_result.status == OperationStatusCodes.succeeded:
         for text_result in read_result.analyze_result.read_results:
-            return text_result
-    print()
-    '''
-    END - Read File - remote
-    '''
-
-print("End of Computer Vision quickstart.")
+            for line in text_result.lines:
+                print(line.text)
+                print(line.bounding_box)

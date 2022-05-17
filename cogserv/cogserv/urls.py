@@ -18,6 +18,5 @@ from django.urls import path, include
 import compvis.urls
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('ocr/', include(compvis.urls)),
+    path('', include(compvis.urls)),
 ]

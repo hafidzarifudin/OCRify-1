@@ -6,6 +6,3 @@ class OCRInputForm(forms.ModelForm):
         model = OCRInput
         fields = ['input_img']
         required = ['input_img']
-        labels = {
-            'input_img': 'Upload Image'
-        }
