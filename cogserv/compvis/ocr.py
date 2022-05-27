@@ -11,8 +11,8 @@ import requests
 import sys
 import time
 
-subscription_key = "1b96e7f1dcd0473cb540714720ac6641"
-endpoint = "https://dydx-computervision.cognitiveservices.azure.com/"
+subscription_key = "d601b76dba21497e8c34527dceace38d"
+endpoint = "https://iai-cv.cognitiveservices.azure.com/"
 
 computervision_client = ComputerVisionClient(endpoint, CognitiveServicesCredentials(subscription_key))
 
@@ -20,9 +20,8 @@ def sendOCR(image):
     print(image.format)
     out = io.BytesIO()
     image.save(out, format = image.format)
-    image_in_bytes = out.getvalue()
-
-    return image_in_bytes
+    #image_in_bytes = out.getvalue()
+    image_in_bytes = open(out,'rb')
 
     read_response = computervision_client.read_in_stream(image_in_bytes,  raw=True)
 
