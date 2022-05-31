@@ -31,7 +31,7 @@ def sendOCR(image):
     read_response = requests.post(ocr_endpoint, headers=headers, data=data)
     read_response.raise_for_status()
     read_response_result = read_response.json()
-
+    textbox_result = ""
     #######################
     # Modify as necessary #
     #######################
@@ -39,4 +39,8 @@ def sendOCR(image):
         for line in region['lines']:
             for word in line['words']:
                 print(word['text'])
+                textbox_result = textbox_result + word['text']
+            textbox_result = textbox_result + " "
+         textbox_resul = textbox + "\n"
+        
 
