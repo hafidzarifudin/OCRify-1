@@ -1,7 +1,6 @@
 from django.urls import path
-from .views import ocr_api, temp_api
+from . import views
 
 urlpatterns = [
-    path('', ocr_api.urls),
-    path('success/', temp_api.urls, name='success')
+    path('', views.index, name='index')
 ]

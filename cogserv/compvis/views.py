@@ -1,33 +1,26 @@
 from django.contrib import messages
 from django.http import HttpResponse
-from django.shortcuts import redirect,render
-from ninja import NinjaAPI
+from django.shortcuts import redirect, render
+from django.urls import reverse
 from PIL import Image
 from .forms import *
 from .ocr import *
 
-ocr_api = NinjaAPI(urls_namespace='ocr_api')
-temp_api = NinjaAPI(urls_namespace='temp_api')
-
 # Create your views here.
-@ocr_api.get('/')
 def index(request):
-    form = OCRInputForm()
-    return render(request, 'image_form.html', {'form' : form})
+    if request.method == 'GET':
+        return render(request, 'image_form.html')
+    elif request.method == 'POST':
+        form = OCRInputForm(request.POST)
+        if form.is_valid():
+            #ocr_result = sendOCR(Image.open(request.FILES['input-img']))
+            #Undefined OCR processing
 
-@ocr_api.post('/')
-def ocr_post(request):
-    form = OCRInputForm(request.POST, request.FILES)
-    if form.is_valid():
-        ocr_result = sendOCR(Image.open(request.FILES['input_img']))
-        #Undefined OCR processing
+            #Temporary render
 
-        #Temporary render
-        return redirect('/success/')
-    else:
-        messages.error(request, 'Please submit a valid image file')
-        
-@temp_api.get('/')
-def success(request):
-    return HttpResponse('Nice')
- 
+            context = {
+                'result': 'test'
+            }
+            return render(request, 'image_form.html', context)
+        else:
+            return redirect('index')

@@ -23,26 +23,21 @@
             <div class="title-divider"></div>
             <div class="left-div">
                 <div class="left-div-contents">
-                    <div class="camera-box">
-                        <div class="camera-svg">
-                            <svg width="131" height="106" viewBox="0 0 131 106" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M86.553 61.7724C86.553 73.3335 77.1482 82.7383 65.5872 82.7383C54.0261 82.7383 44.6249 73.3335 44.6249 61.7724C44.6249 50.2113 54.0261 40.8065 65.5872 40.8065C77.1482 40.8065 86.553 50.2149 86.553 61.7724ZM130.587 32.0018V91.5501C130.587 99.4887 124.151 105.925 116.212 105.925H14.9621C7.02355 105.925 0.587158 99.4887 0.587158 91.5501V32.0018C0.587158 24.0633 7.02355 17.6269 14.9621 17.6269H32.6433V12.6531C32.6433 5.70644 38.2711 0.0750427 45.2214 0.0750427H85.9529C92.9032 0.0750427 98.531 5.70644 98.531 12.6531V17.6233H116.212C124.151 17.6269 130.587 24.0633 130.587 32.0018ZM97.3343 61.7724C97.3343 44.2673 83.0923 30.0253 65.5872 30.0253C48.0856 30.0253 33.8436 44.2673 33.8436 61.7724C33.8436 79.2775 48.0856 93.5195 65.5872 93.5195C83.0923 93.5195 97.3343 79.2775 97.3343 61.7724Z" fill="#A7A7A7"/>
-                            </svg>                            
+                    <form id="input-image" class="box" method="post" action="" enctype="multipart/form-data" onchange=this.submit();>   
+                        {% csrf_token %}
+                        <div class="camera-box">
+                            <div class="camera-svg">
+                                <svg width="131" height="106" viewBox="0 0 131 106" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M86.553 61.7724C86.553 73.3335 77.1482 82.7383 65.5872 82.7383C54.0261 82.7383 44.6249 73.3335 44.6249 61.7724C44.6249 50.2113 54.0261 40.8065 65.5872 40.8065C77.1482 40.8065 86.553 50.2149 86.553 61.7724ZM130.587 32.0018V91.5501C130.587 99.4887 124.151 105.925 116.212 105.925H14.9621C7.02355 105.925 0.587158 99.4887 0.587158 91.5501V32.0018C0.587158 24.0633 7.02355 17.6269 14.9621 17.6269H32.6433V12.6531C32.6433 5.70644 38.2711 0.0750427 45.2214 0.0750427H85.9529C92.9032 0.0750427 98.531 5.70644 98.531 12.6531V17.6233H116.212C124.151 17.6269 130.587 24.0633 130.587 32.0018ZM97.3343 61.7724C97.3343 44.2673 83.0923 30.0253 65.5872 30.0253C48.0856 30.0253 33.8436 44.2673 33.8436 61.7724C33.8436 79.2775 48.0856 93.5195 65.5872 93.5195C83.0923 93.5195 97.3343 79.2775 97.3343 61.7724Z" fill="#A7A7A7"/>
+                                </svg>                            
+                            </div>
                         </div>
-                    </div>
-                    <div class="upload-message">Input image to begin</div>
-                    <div class="upload-sub-message">You can simply put your image in here to transform it into texts.</div>
-                    <form class="box" method="post" action="" enctype="multipart/form-data">   
-                        <div class="box__input">
-                            <input class="box__file" type="file" name="files[]" id="file" data-multiple-caption="{count} files selected" multiple />
-                            <label for="file"><strong>Choose a file</strong><span class="box__dragndrop"> or drag it here</span>.</label>
-                        </div>
-                        <div class="box__uploading">Uploading…</div>
-                        <div class="box__success">Done!</div>
-                        <div class="box__error">Error! <span></span>.</div>
-                        <button class="upload-button" type="submit">
+                        <div class="upload-message">Input image to begin</div>
+                        <div class="upload-sub-message">You can simply put your image in here to transform it into texts.</div>
+                        <input type="file" accept="image/*" id="upload-actual-btn" name="input-image" hidden/>
+                        <label for="upload-actual-btn" class="upload-button">
                             <div class="upload-text">Upload Image</div>
-                        </button>
+                        </label>
                     </form>
                 </div>
             </div>
@@ -55,7 +50,7 @@
                     <option value="en" class="dropdown-value">English</option>
                 </select>
                 <div class = "result-textbox">
-                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Odio quasi voluptas, praesentium aliquam provident nobis cumque voluptatum impedit optio. Unde, cupiditate vel aspernatur deserunt quidem quam eius totam incidunt voluptas?</p>
+                    <p>{{ result|default_if_none:"" }}</p>
                 </div>
             </div>
         </div>
