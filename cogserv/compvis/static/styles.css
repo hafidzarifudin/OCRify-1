@@ -272,6 +272,54 @@ body {
     flex-grow: 0;
 }
 
+.upload-button:hover {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 11px 60px;
+    gap: 10px;
+
+    position: absolute;
+    width: 228px;
+    height: 45px;
+    left: calc(50% - 228px/2);
+    top: calc(50% - 45px/2 + 30%);
+
+    background: linear-gradient(90deg, #3938CA -2.19%, #1A81CC 103.73%);
+    border-radius: 10px;
+    border: none;
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.upload-button:active {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 11px 60px;
+    gap: 10px;
+
+    position: absolute;
+    width: 228px;
+    height: 45px;
+    left: calc(50% - 228px/2);
+    top: calc(50% - 45px/2 + 30%);
+
+    background: linear-gradient(90deg, #2928BA -2.19%, #0A71BC 103.73%);
+    border-radius: 10px;
+    border: none;
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
 .upload-text{
     width: 108px;
     height: 23px;
