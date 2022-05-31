@@ -41,6 +41,6 @@ def sendOCR(image):
                 print(word['text'])
                 textbox_result = textbox_result + word['text']
             textbox_result = textbox_result + " "
-         textbox_resul = textbox + "\n"
+        textbox_resul = textbox + "\n"
         
 

@@ -44,7 +44,7 @@ body {
     position: absolute;
     width: 55px;
     height: 36.69px;
-    left: calc(50% - 55px/2);
+    left: calc(50% - 55px/2 - 16px);
     top: calc(8% - 36.69px/2);
 }
 
@@ -60,12 +60,12 @@ body {
     width: 41.65vw;
     height: 45px;
     left: 1vw;
-    top: calc(8% - 120px/2);
+    top: calc(8% - 108px/2);
 
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 600;
-    font-size: 30px;
+    font-size: 24px;
     line-height: 45px;
     /* identical to box height */
     text-align: center;
@@ -80,12 +80,12 @@ body {
     width: 41.65vw;
     height: 45px;
     right: 1vw;
-    top: calc(8% - 120px/2);
+    top: calc(8% - 108px/2);
 
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 600;
-    font-size: 30px;
+    font-size: 24px;
     line-height: 45px;
     /* identical to box height */
     text-align: center;
@@ -174,7 +174,79 @@ body {
     text-align: right;
 }
 
-.right-div 
+.right-div
+
+.right-text{
+    position: absolute;
+    width: 200px;
+    height: 30px;
+    right: 2.152vw;
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 18px;
+    /* identical to box height */
+    text-align: right;
+
+    color: #7C7C7C;
+}
+
+.dropdown-box{
+    /*
+    appearance: none;
+    background: url("data:image/svg+xml;<svg width='29' height='18' viewBox='0 0 29 18' fill='none' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M3.12227 0.877857L0.322266 3.67786L14.3223 17.6779L17.1223 14.8779L17.1222 14.8778L28.3223 3.67775L25.5223 0.877746L14.3222 12.0778L3.12227 0.877857Z' fill='#1E86D1'/></svg>") no-repeat;
+    background-position: 95% ;
+    */
+    /* Frame 21 */
+
+    box-sizing: border-box;
+
+    /* Auto layout */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 5px;
+    gap: 10px;
+
+    position: absolute;
+    width: 190px;
+    height: 36px;
+    right: 2.152vw;
+    top: 6.5%;
+
+    background: #EDF7FF;
+    border: 2px solid #1E86D1;
+    border-radius: 15px;
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 18px;
+    /* identical to box height */
+    text-align: left;
+
+    color: #1E86D1;
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.dropdown-value{
+    position: absolute;
+    width: 182px;
+    height: 30px;
+    right: 67px;
+    top: 15px;
+
+    color: #1E86D1;
+    background-color: #EDF7FF;
+
+}
 
 .result-textbox {
     /* border-style: solid; */
@@ -340,12 +412,13 @@ body {
     position: absolute;
     width: 220px;
     height: 90px;
-    right: 8.34vw;
-    top: 83.33vh;
+    right: calc(8.34vw - 110px/2);
+    top: calc(83.33vh - 45px/2);
 
     background: #FFFFFF;
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
     border-radius: 30px;
+    transform: scale(0.5);
 }
 
 .download-button{
