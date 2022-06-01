@@ -486,9 +486,9 @@ body {
 /*TTS and Download*/
 .extra-buttons{
     position: absolute;
-    width: 220px;
+    width: 100px;
     height: 90px;
-    right: calc(8.34vw - 110px/2);
+    right: calc(8.34vw - 50px/2);
     top: calc(83.33vh - 45px/2);
 
     background: #FFFFFF;
@@ -512,7 +512,7 @@ body {
     position: absolute;
     width: 60px;
     height: 60.23px;
-    right: calc(30% - 60px/2);
+    right: calc(25%);
     top: calc(50% - 60.23px/2);
     border: none;
     outline: none;

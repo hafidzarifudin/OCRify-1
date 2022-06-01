@@ -27,8 +27,7 @@ def ocr_post(request):
         form = OCRInputForm(request.POST, request.FILES)
         if form.is_valid():
             ocr_result = sendOCR(Image.open(request.FILES['input_img']))
-            translation_result = translate(ocr_result, context['source_language'], context['target_language'])
-            context['result'] = translation_result
+            context['result'] = ocr_result
         return render(request, 'image_form.html', context)
 
 def translate_post(request):
