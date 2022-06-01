@@ -1,8 +1,13 @@
 from django import forms
 from .models import *
 
-class OCRInputForm(forms.ModelForm):
-    class Meta:
-        model = OCRInput
-        fields = ['input_img']
-        required = ['input_img']
+class OCRInputForm(forms.Form):
+    input_img = forms.ImageField()
+
+class TranslatorInputForm(forms.Form):
+    source_language = forms.CharField(max_length=8)
+    target_language = forms.CharField(max_length=8)
+    text = forms.CharField()
+
+class TTSInputForm(forms.Form):
+    tts = forms.CharField()

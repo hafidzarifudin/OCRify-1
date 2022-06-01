@@ -4,13 +4,11 @@
         <meta charset="utf-8">
         <title>Image Upload</title>
         {% load static %}
-        <link rel = "stylesheet" href="{% static 'styles.css' %}"> 
+        <link rel = "stylesheet" href="{% static 'styles.css' %}">
     </head>
     <body>
-        <div class="bruh">
-            <a href="#home">Home</a>
-            <a href="#translator">Translate</a>
-            <a href="#tts">Text-to-Speech</a>
+        <div class="page-header">
+            <h1>OCRify</h1>
         </div>
         <div class = "main-div">
             <div class="left-title"><h2>Input Image</h2></div>
@@ -23,7 +21,7 @@
             <div class="title-divider"></div>
             <div class="left-div">
                 <div class="left-div-contents">
-                    <form id="input-image" class="box" method="post" action="" enctype="multipart/form-data" onchange=this.submit();>   
+                    <form method="post" action="ocr" enctype="multipart/form-data" onchange=this.submit();>   
                         {% csrf_token %}
                         <div class="camera-box">
                             <div class="camera-svg">
@@ -42,23 +40,38 @@
                 </div>
             </div>
             <div class = "right-div">
-                <div class="left-text">
-                    Current Language
-                </div>
-                <select class="dropdown-box source-dropdown">
-                    <option value="id" class="dropdown-value">Bahasa Indonesia</option>
-                    <option value="en" class="dropdown-value">English</option>
-                </select>
-                <div class="right-text">
-                    Detected Language
-                </div>
-                <select class="dropdown-box target-dropdown">
-                    <option value="id" class="dropdown-value">Bahasa Indonesia</option>
-                    <option value="en" class="dropdown-value">English</option>
-                </select>
-                <div class = "result-textbox">
-                    <p>{{ result|linebreaksbr|default_if_none:"" }}</p>
-                </div>
+                <form method="post" action="translate" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="left-text">
+                        Current Language
+                    </div>
+                    <select class="dropdown-box source-dropdown" name="source_language">
+                        {% for language in available_languages %}
+                        <option class="dropdown-value" value="{{language.id}}" {% if language.id == selected_source %} selected="selected" {% endif %}>
+                            {{ language.name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                    <div class="right-text">
+                        Target Language
+                    </div>
+                    <select class="dropdown-box target-dropdown" name="target_language">
+                        {% for language in available_languages %}
+                        <option class="dropdown-value" value="{{language.id}}" {% if language.id == selected_target %} selected="selected" {% endif %}>
+                            {{ language.name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                    <button class="translate-btn" type="submit">
+                        <div class="translate-text">
+                            Translate
+                        </div>
+                    </button>
+                    <div class = "result-textbox">
+                        <p>{{ result|linebreaksbr|default_if_none:"" }}</p>
+                    </div>
+                    <input name="text" value="{{ result|default_if_none:'' }}" style="display:none;"/>
+                </form>
             </div>
         </div>
         <div class="extra-buttons">
@@ -78,17 +91,22 @@
                     </defs>
                 </svg>                    
             </a>
-            <a class="tts-button">
-                <svg width="60" height="48" viewBox="0 0 60 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M47.3402 1.12455C48.7653 0.154074 50.6969 0.336011 51.7949 1.66538C56.8771 7.81824 60 15.6994 60 24.2901C60 32.7891 57.0238 40.593 52.0568 46.7165C51.0354 47.9756 49.2141 48.1486 47.8843 47.2212L47.675 47.0753C46.3513 46.1522 46.1982 44.256 47.2244 43.0105C51.4009 37.9417 53.9063 31.4648 53.9063 24.4072C53.9063 17.1622 51.266 10.529 46.8879 5.4029C45.7796 4.10516 45.9295 2.08513 47.3402 1.12455ZM10.9226 16.0868L26.1602 3.45079C27.6877 2.18403 30 3.27043 30 5.25491V18.4306V30.1493V43.4653C30 45.4458 27.6957 46.5335 26.1666 45.2747L10.6409 32.4931H2.34375C1.04933 32.4931 0 31.4438 0 30.1493V18.4306C0 17.1362 1.04933 16.0868 2.34375 16.0868H10.9226ZM42.3278 11.0709C41.3994 9.88992 39.7516 9.6339 38.4108 10.3113C37.071 10.9883 36.7757 12.7774 37.6273 14.0135C39.6166 16.9013 40.7813 20.4011 40.7813 24.1729C40.7813 27.8121 39.697 31.1981 37.834 34.0255C37.0273 35.2497 37.2896 36.9721 38.5639 37.6971C40.1937 38.6244 42.2848 38.2708 43.282 36.6829C45.5585 33.058 46.875 28.7692 46.875 24.1729C46.875 19.4793 45.4086 14.9899 42.3278 11.0709Z" fill="url(#paint0_linear_12_79)"/>
-                    <defs>
-                    <linearGradient id="paint0_linear_12_79" x1="-5.5" y1="24" x2="67" y2="24" gradientUnits="userSpaceOnUse">
-                    <stop stop-color="#585BEA"/>
-                    <stop offset="1" stop-color="#3C9EEC"/>
-                    </linearGradient>
-                    </defs>
-                </svg>                    
-            </a>
+            <form action="tts" method="post">
+                {% csrf_token %}
+                <button class="tts-button" type="submit">
+                    <svg width="60" height="48" viewBox="0 0 60 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M47.3402 1.12455C48.7653 0.154074 50.6969 0.336011 51.7949 1.66538C56.8771 7.81824 60 15.6994 60 24.2901C60 32.7891 57.0238 40.593 52.0568 46.7165C51.0354 47.9756 49.2141 48.1486 47.8843 47.2212L47.675 47.0753C46.3513 46.1522 46.1982 44.256 47.2244 43.0105C51.4009 37.9417 53.9063 31.4648 53.9063 24.4072C53.9063 17.1622 51.266 10.529 46.8879 5.4029C45.7796 4.10516 45.9295 2.08513 47.3402 1.12455ZM10.9226 16.0868L26.1602 3.45079C27.6877 2.18403 30 3.27043 30 5.25491V18.4306V30.1493V43.4653C30 45.4458 27.6957 46.5335 26.1666 45.2747L10.6409 32.4931H2.34375C1.04933 32.4931 0 31.4438 0 30.1493V18.4306C0 17.1362 1.04933 16.0868 2.34375 16.0868H10.9226ZM42.3278 11.0709C41.3994 9.88992 39.7516 9.6339 38.4108 10.3113C37.071 10.9883 36.7757 12.7774 37.6273 14.0135C39.6166 16.9013 40.7813 20.4011 40.7813 24.1729C40.7813 27.8121 39.697 31.1981 37.834 34.0255C37.0273 35.2497 37.2896 36.9721 38.5639 37.6971C40.1937 38.6244 42.2848 38.2708 43.282 36.6829C45.5585 33.058 46.875 28.7692 46.875 24.1729C46.875 19.4793 45.4086 14.9899 42.3278 11.0709Z" fill="url(#paint0_linear_12_79)"/>
+                        <defs>
+                        <linearGradient id="paint0_linear_12_79" x1="-5.5" y1="24" x2="67" y2="24" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#585BEA"/>
+                        <stop offset="1" stop-color="#3C9EEC"/>
+                        </linearGradient>
+                        </defs>
+                    </svg>                    
+                </button>
+                <input name="tts" value="{{result}}" style="display:none;"/>
+            </form>
         </div>
+        <iframe name="dummyframe" id="dummyframe" style="display:none;"></iframe>
     </body>
 </html>
