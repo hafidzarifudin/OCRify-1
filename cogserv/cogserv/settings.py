@@ -52,7 +52,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'compvis.urls'
+ROOT_URLCONF = 'cogserv.urls'
 
 TEMPLATES = [
     {

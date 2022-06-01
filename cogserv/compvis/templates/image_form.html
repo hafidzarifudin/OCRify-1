@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <title>Image Upload</title>
         {% load static %}
-        <link rel = "stylesheet" href="{% static 'styles.css' %}">
+        <link rel = "stylesheet" href="{% static 'styles.css' %}"> 
     </head>
     <body>
         <div class="bruh">
@@ -57,7 +57,7 @@
                     <option value="en" class="dropdown-value">English</option>
                 </select>
                 <div class = "result-textbox">
-                    <p>{{ result|default_if_none:"" }}</p>
+                    <p>{{ result|linebreaksbr|default_if_none:"" }}</p>
                 </div>
             </div>
         </div>

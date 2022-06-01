@@ -18,5 +18,5 @@ from django.urls import path, include
 import compvis.urls
 
 urlpatterns = [
-    path('', include(compvis.urls)),
+    path('', include(compvis.urls))
 ]
