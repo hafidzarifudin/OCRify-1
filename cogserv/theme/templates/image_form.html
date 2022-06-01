@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Image Upload</title>
+         <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body class="flex flex-col justify-center items-center w-full h-auto font-sans bg-[#121214] text-[#fdfdfd]">
+        <header class="page-header flex flex-row justify-between items-center px-12 w-full h-[5rem] border-b-[1px] border-[#403F41]">
+            <h1 class="text-2xl font-bold">🎴 OCRify</h1>
+            <h1 class="text-2xl font-bold">Ge.de</h1>
+        </header>
+        <div class = "main-div flex flex-col justify-center items-center w-5/6 h-auto min-h-[40rem] my-20 border-2 border-[#403F41] bg-[#252427] rounded-xl">
+            <div class="title flex flex-row justify-center items-center w-full min-h-[3rem] border-b-[1px] border-[#403F41]   ">
+                <h2 class="left-div-title flex flex-col justify-center items-center w-full h-[3rem] text-xl font-semibold ">Input an Image</h2>
+                <h2 class="right-div-title flex flex-col justify-center items-center  w-full h-[3rem] text-xl font-semibold ">Text Output</h2>
+            </div>
+            <div class ="flex flex-row justify-center items-center w-full min-h-[45rem]" >
+                <div class="left-div flex flex-col justify-center items-center w-1/2 min-h-[45rem] border-r-[1px] border-[#403F41] ">
+                    <div class="left-div-contents flex h-[45rem] w-full ">
+                        <form class=" h-full w-full" method="post" action="ocr" enctype="multipart/form-data" onchange=this.submit();>   
+                            {% csrf_token %}
+                            <label for="upload-actual-btn" class="upload-button flex flex-col justify-center items-center h-full w-full cursor-pointer text-[#D3D3D4] hover:bg-[#2d2c30]">
+                                {% comment %} {% if uploaded_image %}
+                                <img
+                                    src="{{ url_for('send_uploaded_image', filename=uploaded_image) }}"
+                                    class="mt-4 mb-4 w-64 rounded-md"
+                                />
+                                {% else %} {% endcomment %}
+                                <p class="upload-text text-lg font-semibold text-white  ">Upload Image</p>
+                                <div class="icon-camera text-[7rem] mt-[-2rem]  ">📸</div>
+                                <p class="upload-message text-xl font-bold text-yellow-400">Select file to Upload</p>
+                                <p class="upload-sub-message">JPG, PNG, GIF, or other formats.</p>
+                                <input type="file" accept="image/*" id="upload-actual-btn" name="input_img" hidden/>
+                                {% comment %} {% endif %} {% endcomment %}
+                            </label>
+                        </form>
+                    </div>
+                </div>
+                <div class = "right-div flex flex-col justify-start items-center w-1/2 min-h-[45rem] border-l-[1px] border-[#403F41] ">
+                    <div class="right-div-contents relative flex flex-row justify-center items-center h-full w-full">
+                        <form class="flex flex-col justify-center  items-start h-full w-full text-[#D3D3D4]" method="post" action="translate" enctype="multipart/form-data">
+                            {% comment %}   {% endcomment %}
+                            <div class="select-language flex flex-row justify-between items-center w-full h-[3rem] " >
+                                {% csrf_token %}
+                                <div class="current-language flex flex-row justify-center items-center w-9/12 h-full p-6">
+                                    <select class="dropdown-box source-dropdown flex flex-row justify-center items-center w-1/2 h-[2rem] rounded-sm  bg-[#49474b] px-[0.5rem] " name="source_language">
+                                        {% for language in available_languages %}
+                                        <option class="dropdown-value" value="{{language.id}}" {% if language.id == selected_source %} selected="selected" {% endif %}>
+                                            {{ language.name }}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                    <svg
+                                        width="40"
+                                        height="40"
+                                        viewBox="0 0 24 24"
+                                        fill="#ffffff"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                        <path d="M16 13V11.5H10V9.5H16V8L19 10.5L16 13Z" fill="#ffffff" />
+                                        <path d="M8 17V15.5H14V13.5H8V12L5 14.5L8 17Z" fill="#ffffff" />
+                                    </svg>
+                                    <select class="dropdown-box target-dropdown flex flex-row justify-center items-center w-1/2 h-[2rem] rounded-sm bg-[#49474b] px-[0.5rem]  " name="target_language">
+                                        {% for language in available_languages %}
+                                        <option class="dropdown-value " value="{{language.id}}" {% if language.id == selected_target %} selected="selected" {% endif %}>
+                                            {{ language.name }}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="translate-text flex flex-row justify-center items-center p-[0.1rem] w-3/12 h-full text-white  ">
+                                        <button class="translate-btn flex flex-row justify-center items-center w-10/12 h-[2rem] bg-[#49474b] rounded-sm text-base font-semibold" type="submit">
+                                        Translate
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class = "result-textbox flex flex-column w-full h-[42rem] p-8 border-[#444346] text-white">
+                            <p class="result-text " >{{ result|linebreaksbr|default_if_none:"" }}</p>
+                            </div>
+                            <input name="text" value="{{ result|default_if_none:'' }}" style="display:none;"/>
+                        </form>
+                        <div class="extra-buttons absolute bottom-2 left-4">
+                            <form action="tts" method="post" target="dummyframe">
+                                {% csrf_token %}
+                                <button class="tts-button" type="submit">
+                                    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="2.5rem" height="2.5rem" preserveAspectRatio="xMidYMid meet" viewBox="0 0 512 512">
+                                        <path fill="#ffffff" d="M264 416.19a23.92 23.92 0 0 1-14.21-4.69l-.66-.51l-91.46-75H88a24 24 0 0 1-24-24V200a24 24 0 0 1 24-24h69.65l91.46-75l.66-.51A24 24 0 0 1 288 119.83v272.34a24 24 0 0 1-24 24ZM352 336a16 16 0 0 1-14.29-23.18c9.49-18.9 14.3-38 14.3-56.82c0-19.36-4.66-37.92-14.25-56.73a16 16 0 0 1 28.5-14.54C378.2 208.16 384 231.47 384 256c0 23.83-6 47.78-17.7 71.18A16 16 0 0 1 352 336Z"/>
+                                        <path fill="#ffffff" d="M400 384a16 16 0 0 1-13.87-24C405 327.05 416 299.45 416 256c0-44.12-10.94-71.52-29.83-103.95A16 16 0 0 1 413.83 136C434.92 172.16 448 204.88 448 256c0 50.36-13.06 83.24-34.12 120a16 16 0 0 1-13.88 8Z"/>
+                                    </svg>         
+                                </button>
+                                <input name="tts" value="{{result}}" style="display:none;"/>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <iframe name="dummyframe" id="dummyframe" style="display:none;"></iframe>
+    </body>
+</html>
