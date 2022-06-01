@@ -34,7 +34,7 @@
                         </div>
                         <div class="upload-message">Input image to begin</div>
                         <div class="upload-sub-message">You can simply put your image in here to transform it into texts.</div>
-                        <input type="file" accept="image/*" id="upload-actual-btn" name="input-image" hidden/>
+                        <input type="file" accept="image/*" id="upload-actual-btn" name="input_img" hidden/>
                         <label for="upload-actual-btn" class="upload-button">
                             <div class="upload-text">Upload Image</div>
                         </label>
@@ -42,10 +42,17 @@
                 </div>
             </div>
             <div class = "right-div">
+                <div class="left-text">
+                    Current Language
+                </div>
+                <select class="dropdown-box source-dropdown">
+                    <option value="id" class="dropdown-value">Bahasa Indonesia</option>
+                    <option value="en" class="dropdown-value">English</option>
+                </select>
                 <div class="right-text">
                     Detected Language
                 </div>
-                <select class="dropdown-box">
+                <select class="dropdown-box target-dropdown">
                     <option value="id" class="dropdown-value">Bahasa Indonesia</option>
                     <option value="en" class="dropdown-value">English</option>
                 </select>

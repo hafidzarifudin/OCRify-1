@@ -176,6 +176,23 @@ body {
 
 .right-div
 
+.left-text{
+    position: absolute;
+    width: 200px;
+    height: 30px;
+    right: calc(2.152vw + 37.638vw - 200px);
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 18px;
+    /* identical to box height */
+    text-align: left;
+
+    color: #7C7C7C;
+}
+
 .right-text{
     position: absolute;
     width: 200px;
@@ -236,6 +253,14 @@ body {
     flex-grow: 0;
 }
 
+.source-dropdown{
+    right: calc(2.152vw + 37.638vw - 185px);
+}
+
+.target-dropdown{
+    right: 2.152vw;
+}
+
 .dropdown-value{
     position: absolute;
     width: 182px;
@@ -259,14 +284,19 @@ body {
     height: 39.746vh;
     right: 2.152vw;
     top: 10vh;
-    text-align: left;
 
     border: 3px solid #D1D1D1;
     border-radius: 30px; 
+
+    overflow-wrap: break-word;
+    text-align: justify;
 }
 
 .result-textbox p {
-    padding: 5%;
+    overflow: auto;
+    max-height: calc(100% - 5vh);
+    width: calc(100% - 2.152vw - 5%);
+    padding: 0% 5%;
 }
 
 .camera-box{

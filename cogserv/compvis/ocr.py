@@ -38,9 +38,9 @@ def sendOCR(image):
     for region in read_response_result['regions']:
         for line in region['lines']:
             for word in line['words']:
-                print(word['text'])
-                textbox_result = textbox_result + word['text']
-            textbox_result = textbox_result + " "
-        textbox_resul = textbox + "\n"
+                textbox_result = textbox_result + word['text'] + " "
+            textbox_result = textbox_result + "\n"
+        textbox_result = textbox_result + "\n"
+    return textbox_result
         
 

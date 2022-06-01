@@ -11,16 +11,15 @@ def index(request):
     if request.method == 'GET':
         return render(request, 'image_form.html')
     elif request.method == 'POST':
-        form = OCRInputForm(request.POST)
+        form = OCRInputForm(request.POST, request.FILES)
         if form.is_valid():
-            #ocr_result = sendOCR(Image.open(request.FILES['input-img']))
-            #Undefined OCR processing
-
-            #Temporary render
-
+            #ocr_result = sendOCR(Image.open(request.FILES['input_img']))
             context = {
-                'result': 'test'
+                'result': 'mazda mazda mazda mazda mazda mazda mazda mazda mazda mazda mazda mazda mazda mazda mazda mazda mazda mazda mazda mazda mazda mazda mazda mazda mazda mazda mazda mazda mazda mazda mazda mazda mazda mazda mazda mazda mazda mazda mazda mazda mazda mazda mazda mazda mazda mazda mazda mazda mazda mazda mazda mazda  mazda mazda mazda mazda mazda mazda mazda mazda mazda mazda mazda mazda mazda mazda mazda mazda mazda mazda mustang'
             }
             return render(request, 'image_form.html', context)
         else:
-            return redirect('index')
+            context = {
+                'result': 'fail'
+            }
+            return render(request, 'image_form.html', context)
