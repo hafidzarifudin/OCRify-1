@@ -38,8 +38,6 @@ def sendOCR(image):
         for line in region['lines']:
             for word in line['words']:
                 textbox_result = textbox_result + word['text'] + " "
-            textbox_result = textbox_result[:-1] + "\n"
-        textbox_result = textbox_result + "\n"
-    return textbox_result
+    return textbox_result[:-1]
         
 
