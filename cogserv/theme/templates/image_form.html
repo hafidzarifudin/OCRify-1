@@ -23,18 +23,11 @@
                         <form class=" h-full w-full" method="post" action="ocr" enctype="multipart/form-data" onchange=this.submit();>   
                             {% csrf_token %}
                             <label for="upload-actual-btn" class="upload-button flex flex-col justify-center items-center h-full w-full cursor-pointer text-[#D3D3D4] hover:bg-[#2d2c30]">
-                                {% comment %} {% if uploaded_image %}
-                                <img
-                                    src="{{ url_for('send_uploaded_image', filename=uploaded_image) }}"
-                                    class="mt-4 mb-4 w-64 rounded-md"
-                                />
-                                {% else %} {% endcomment %}
                                 <p class="upload-text text-lg font-semibold text-white  ">Upload Image</p>
                                 <div class="icon-camera text-[7rem] mt-[-2rem]  ">📸</div>
                                 <p class="upload-message text-xl font-bold text-yellow-400">Select file to Upload</p>
                                 <p class="upload-sub-message">JPG, PNG, GIF, or other formats.</p>
-                                <input type="file" accept="image/*" id="upload-actual-btn" name="input_img" hidden/>
-                                {% comment %} {% endif %} {% endcomment %}
+                                <input type="file" accept="image/*" id="upload-actual-btn" name="input_img"  hidden/>
                             </label>
                         </form>
                     </div>
